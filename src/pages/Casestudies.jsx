@@ -1,11 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../component/Navbar'
 import Footer from '../component/Footer'
 
 export default function Casestudies() {
+    const [loaded, setLoaded] = useState({});
+
+    const caseStudies = [
+        {
+            brand: "E-commerce Fashion Brand",
+            result: "4.8x ROAS in 60 Days",
+            desc: "Scaled paid ads with high-converting creatives and retargeting funnels.",
+            img: "https://images.unsplash.com/photo-1552664730-d307ca884978",
+            color: "from-indigo-500 to-purple-500"
+        },
+        {
+            brand: "Local Restaurant Chain",
+            result: "220% Engagement Growth",
+            desc: "Content strategy + reels increased footfall and online visibility.",
+            img: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80",
+            color: "from-pink-500 to-rose-500"
+        }
+        ,
+
+        {
+            brand: "Tech Startup",
+            result: "3x Lead Generation",
+            desc: "Brand strategy and LinkedIn ads drove qualified B2B leads.",
+            img: "https://images.unsplash.com/photo-1556761175-4b46a572b786",
+            color: "from-emerald-500 to-teal-500"
+        }
+    ];
+
     return (
         <div>
-            <Navbar/>
+            <Navbar />
+
             {/* Case Studies Section */}
             <section className="py-24 bg-white">
                 <div className="max-w-7xl mx-auto px-6">
@@ -29,33 +58,37 @@ export default function Casestudies() {
 
                     {/* Case Study Cards */}
                     <div className="mt-16 grid md:grid-cols-3 gap-10">
-                        {[
-                            {
-                                brand: "E-commerce Fashion Brand",
-                                result: "4.8x ROAS in 60 Days",
-                                desc: "Scaled paid ads with high-converting creatives and retargeting funnels.",
-                                color: "from-indigo-500 to-purple-500"
-                            },
-                            {
-                                brand: "Local Restaurant Chain",
-                                result: "220% Engagement Growth",
-                                desc: "Content strategy + reels increased footfall and online visibility.",
-                                color: "from-pink-500 to-rose-500"
-                            },
-                            {
-                                brand: "Tech Startup",
-                                result: "3x Lead Generation",
-                                desc: "Brand strategy and LinkedIn ads drove qualified B2B leads.",
-                                color: "from-emerald-500 to-teal-500"
-                            }
-                        ].map((item, index) => (
+                        {caseStudies.map((item, index) => (
                             <div
                                 key={index}
                                 className="group bg-gray-50 rounded-3xl p-8 hover:shadow-xl transition"
                             >
-                                <div
-                                    className={`h-40 rounded-2xl bg-gradient-to-tr ${item.color}`}
-                                ></div>
+                                {/* Image Wrapper */}
+                                <div className="relative h-40 w-full overflow-hidden rounded-2xl">
+
+                                    {/* Skeleton */}
+                                    {!loaded[index] && (
+                                        <div className="absolute inset-0 bg-gray-200 animate-pulse" />
+                                    )}
+
+                                    {/* Image */}
+                                    <img
+                                        src={item.img}
+                                        alt={item.brand}
+                                        loading="lazy"
+                                        onLoad={() =>
+                                            setLoaded(prev => ({ ...prev, [index]: true }))
+                                        }
+                                        className={`h-full w-full object-cover transition-all duration-700
+                      ${loaded[index]
+                                                ? "opacity-100 blur-0 scale-100"
+                                                : "opacity-0 blur-lg scale-105"}
+                    `}
+                                    />
+
+                                    {/* Gradient Overlay */}
+                                    <div className={`absolute inset-0 bg-gradient-to-tr ${item.color} opacity-40`} />
+                                </div>
 
                                 <h3 className="mt-6 text-xl font-bold">{item.brand}</h3>
                                 <p className="mt-2 text-indigo-600 font-semibold">{item.result}</p>
@@ -83,7 +116,8 @@ export default function Casestudies() {
 
                 </div>
             </section>
-            <Footer/>
+
+            <Footer />
         </div>
     )
 }

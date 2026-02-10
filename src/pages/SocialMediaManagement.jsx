@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Footer from '../component/Footer'
 import Navbar from '../component/Navbar'
 
 export default function SocialMediaManagement() {
+    const [loaded, setLoaded] = useState(false)
+
     return (
         <div>
             <Navbar />
+
             {/* Social Media Management Section */}
             <section className="py-24 bg-white">
                 <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-14 items-center">
@@ -42,19 +45,29 @@ export default function SocialMediaManagement() {
                     <div className="relative">
                         <div className="absolute inset-0 bg-gray-950 rounded-3xl blur-3xl"></div>
 
-                        <div className="relative bg-gray-100 rounded-3xl p-6 shadow-xl">
+                        <div className="relative bg-gray-100 rounded-3xl p-6 shadow-xl overflow-hidden h-72">
+                            {/* Skeleton Placeholder */}
+                            {!loaded && (
+                                <div className="absolute inset-0 bg-gray-200 animate-pulse z-10 rounded-2xl" />
+                            )}
+
+                            {/* Image */}
                             <img
-                                src="https://images.unsplash.com/photo-1557838923-2985c318be48"
+                                src="https://images.unsplash.com/photo-1557838923-2985c318be48?auto=format&fit=crop&w=800&q=80"
                                 alt="Social Media Marketing"
-                                className="h-72 w-full object-cover rounded-2xl"
+                                loading="lazy"
+                                onLoad={() => setLoaded(true)}
+                                className={`relative z-20 h-full w-full object-cover rounded-2xl transition-all duration-700
+                                    ${loaded ? "opacity-100 blur-0 scale-100" : "opacity-0 blur-lg scale-105"}
+                                `}
                             />
                         </div>
                     </div>
 
                 </div>
             </section>
-            <Footer />
 
+            <Footer />
         </div>
     )
 }

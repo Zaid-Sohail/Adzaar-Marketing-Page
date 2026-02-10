@@ -1,17 +1,15 @@
 
+import React, { useState } from 'react';
 import Navbar from '../component/Navbar';
 import Footer from '../component/Footer';
 import { Link } from 'react-router-dom';
 
 export default function Home() {
+  const [loaded, setLoaded] = useState(false);
+
   return (
     <div className="font-sans text-gray-900">
       <Navbar />
-
-
-      {/* Hero Section */}
-
-
 
       {/* Hero Section */}
       <section className="pt-32 pb-24 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 text-white">
@@ -32,24 +30,33 @@ export default function Home() {
               </button>
             </div>
           </div>
-          <div className="relative">
-            <div className="absolute inset-0 bg-gray-950  rounded-3xl blur-3xl"></div>
 
-            <div className="relative bg-gray-100 rounded-3xl p-6 shadow-2xl">
+          <div className="relative">
+            <div className="absolute inset-0 bg-gray-950 rounded-3xl blur-3xl"></div>
+
+            <div className="relative bg-gray-100 rounded-3xl p-6 shadow-2xl overflow-hidden h-64">
+              {/* Skeleton Placeholder */}
+              {!loaded && (
+                <div className="absolute inset-0 bg-gray-200 animate-pulse z-10 rounded-2xl" />
+              )}
+
+              {/* Hero Image */}
               <img
-                src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c"
+                src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?auto=format&fit=crop&w=800&q=80"
                 alt="Digital Marketing"
-                className="h-64 w-full object-cover rounded-2xl"
+                loading="lazy"
+                onLoad={() => setLoaded(true)}
+                className={`relative z-20 h-full w-full object-cover rounded-2xl transition-all duration-700
+                  ${loaded ? "opacity-100 blur-0 scale-100" : "opacity-0 blur-lg scale-105"}
+                `}
               />
             </div>
           </div>
-
         </div>
-      </section >
-
+      </section>
 
       {/* Services Section */}
-      <section className="py-24 bg-gray-50" >
+      <section className="py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold">What We Do Best</h2>
@@ -74,31 +81,29 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </section >
-
+      </section>
 
       {/* CTA Section */}
-     <section className="py-24 bg-indigo-600 text-white">
-  <div className="max-w-5xl mx-auto px-6 text-center">
-    <h2 className="text-3xl md:text-4xl font-extrabold">
-      Ready to Scale Your Social Presence?
-    </h2>
+      <section className="py-24 bg-indigo-600 text-white">
+        <div className="max-w-5xl mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-4xl font-extrabold">
+            Ready to Scale Your Social Presence?
+          </h2>
 
-    <p className="mt-4 text-white/90">
-      Let Adzaar Marketing turn your followers into loyal customers.
-    </p>
+          <p className="mt-4 text-white/90">
+            Let Adzaar Marketing turn your followers into loyal customers.
+          </p>
 
-    <Link
-      to="/contact"
-      className="mt-8 inline-block px-10 py-4 rounded-2xl bg-white text-indigo-700 font-semibold hover:bg-gray-100 transition duration-300 ease-in-out"
-    >
-      Book a Free Consultation
-    </Link>
-  </div>
-</section>
-
+          <Link
+            to="/contact"
+            className="mt-8 inline-block px-10 py-4 rounded-2xl bg-white text-indigo-700 font-semibold hover:bg-gray-100 transition duration-300 ease-in-out"
+          >
+            Book a Free Consultation
+          </Link>
+        </div>
+      </section>
 
       <Footer />
-    </div >
+    </div>
   );
 }

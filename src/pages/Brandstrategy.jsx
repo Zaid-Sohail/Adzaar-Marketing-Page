@@ -2,8 +2,10 @@ import React from 'react'
 import Navbar from '../component/Navbar'
 import Footer from '../component/Footer'
 import { Link } from 'react-router-dom'
+import { useState } from "react";
 
 export default function Brandstrategy() {
+    const [loaded, setLoaded] = useState(false);
     return (
         <div>
             <Navbar />
@@ -13,13 +15,24 @@ export default function Brandstrategy() {
 
                     {/* Left Visual */}
                     <div className="relative">
-                        <div className="absolute inset-0 bg-gray-950  rounded-3xl blur-3xl"></div>
+                        <div className="absolute inset-0 bg-gray-950 rounded-3xl blur-3xl"></div>
 
-                        <div className="relative bg-gray-100 rounded-3xl p-6 shadow-2xl">
+                        <div className="relative bg-gray-100 rounded-3xl p-6 shadow-2xl overflow-hidden">
+
+                            {/* Skeleton Loader */}
+                            {!loaded && (
+                                <div className="absolute inset-6 bg-gray-300 rounded-2xl animate-pulse" />
+                            )}
+
+                            {/* Image */}
                             <img
                                 src="https://images.unsplash.com/photo-1556761175-4b46a572b786"
                                 alt="Digital Marketing"
-                                className="h-64 w-full object-cover rounded-2xl"
+                                loading="lazy"
+                                onLoad={() => setLoaded(true)}
+                                className={`h-64 w-full object-cover rounded-2xl transition-all duration-700
+            ${loaded ? "opacity-100 blur-0 scale-100" : "opacity-0 blur-lg scale-105"}
+          `}
                             />
                         </div>
                     </div>
