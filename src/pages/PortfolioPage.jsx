@@ -43,7 +43,7 @@ export default function PortfolioPage() {
 
 
             {/* Hero */}
-            <section className="pt-32 pb-24 bg-gradient-to-br from-indigo-700 via-purple-700 to-pink-600 text-white text-center">
+            <section className="pt-32 pb-24  from-indigo-700 via-purple-700 to-pink-600 text-white text-center">
                 <h1 className="text-4xl md:text-6xl font-extrabold">Our Portfolio</h1>
                 <p className="mt-6 max-w-3xl mx-auto text-lg text-white/90">
                     Real brands. Real growth. Proven results across multiple industries.
